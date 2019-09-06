@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginBottom="30dp">
+
+    <TextView
+        android:id="@+id/item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:textColor="#1aaf89"
+        android:lineSpacingExtra="10sp"
+        android:text="[JS컴퍼니] "
+        />
+
+    <TextView
+        android:layout_marginTop="5dp"
+        android:id="@+id/item_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textColor="#373737"
+        android:lineSpacingExtra="1.8sp"
+        android:text="전남 함평 무농약 미니밤호박(보우짱) 소과(250-300g) 6개입"
+        />
+
+    <ImageView
+        android:id="@+id/item_image"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        />
+
+    <TextView
+        android:id="@+id/item_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13.2sp"
+        android:textColor="#ff6060"
+        android:lineSpacingExtra="15sp"
+        android:layout_gravity="right"
+        android:text="18,650원"
+        />
+</LinearLayout>
