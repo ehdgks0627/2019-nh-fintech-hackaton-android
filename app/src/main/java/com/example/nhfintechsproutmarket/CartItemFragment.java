@@ -12,17 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
-import com.android.volley.toolbox.Volley;
-import com.example.nhfintechsproutmarket.dummy.HomeItemContent.DummyItem;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.example.nhfintechsproutmarket.dummy.CartItemContent;
+import com.example.nhfintechsproutmarket.dummy.CartItemContent.DummyItem;
 
 /**
  * A fragment representing a list of Items.
@@ -30,30 +21,28 @@ import org.json.JSONObject;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class HomeFragment extends Fragment {
+public class CartItemFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
-    private MyItemRecyclerViewAdapter adapter;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public HomeFragment() {
+    public CartItemFragment() {
     }
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static HomeFragment newInstance(int columnCount) {
-        HomeFragment fragment = new HomeFragment();
+    public static CartItemFragment newInstance(int columnCount) {
+        CartItemFragment fragment = new CartItemFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
-
         return fragment;
     }
 
@@ -69,7 +58,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_item_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_cartitem_list, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -80,36 +69,7 @@ public class HomeFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            adapter = new MyItemRecyclerViewAdapter(mListener);
-            recyclerView.setAdapter(adapter);
-
-            String url = getActivity().getString(R.string.server_url) + "/product/fit";
-            JsonRequest<JSONObject> request = new JsonObjectRequest(Request.Method.GET, url, new JSONObject(),
-                    response -> {
-
-                        try {
-                            for(int i=0; i<response.getJSONArray("data").length(); i++) {
-                                adapter.mValues.add(
-                                        new DummyItem(
-                                                response.getJSONArray("data").getJSONObject(i).getString("_id"),
-                                                response.getJSONArray("data").getJSONObject(i).getString("product_category"),
-                                                response.getJSONArray("data").getJSONObject(i).getString("product_name"),
-                                                response.getJSONArray("data").getJSONObject(i).getString("product_photo"),
-                                                response.getJSONArray("data").getJSONObject(i).getString("product_price")
-                                        ));
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        adapter.notifyDataSetChanged();
-                    }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    error.printStackTrace();
-                }
-            });
-            RequestQueue queue = Volley.newRequestQueue(getActivity());
-            queue.add(request);
+            recyclerView.setAdapter(new MyCartItemRecyclerViewAdapter(mListener));
         }
         return view;
     }
